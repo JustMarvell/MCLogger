@@ -7,7 +7,11 @@ from dotenv import load_dotenv
 load_dotenv()
 
 DISCORD_API_SECRET = os.getenv("DISCORD_API_TOKEN")
-SERVER_IP = os.getenv("SERVER_IP")
+SERVER_HOST = os.getenv("SERVER_HOST")
+SERVER_PORT = os.getenv("SERVER_PORT")
+DISCORD_CHANNEL_ID = os.getenv("DISCORD_CHANNEL_ID")
+RCON_PORT = os.getenv("SERVER_RCON_PORT")
+RCON_PASSWORD = os.getenv("SERVER_RCON_PASSWORD")
 HEADERS = {"Content-Type" : "application/json"}
 BASE_DIR = pathlib.Path(__file__).parent
 COGS_DIR = BASE_DIR / "cogs"
