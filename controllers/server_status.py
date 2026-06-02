@@ -1,7 +1,7 @@
 from mcstatus import JavaServer
 import settings
 
-server = JavaServer.lookup(settings.SERVER_IP)
+server = JavaServer.lookup(f"{settings.SERVER_HOST}:{settings.SERVER_PORT}")
 
 async def get_server_status():
     status = server.status()
