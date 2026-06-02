@@ -16,8 +16,8 @@ class SendToMC(commands.Cog):
         """ Send a Message To the minecraft server """
 
         try:
-            with RconClient(settings.SERVER_HOST, int(settings.RCON_PORT), passwd=settings.RCON_PASSWORD) as rcon:
-                rcon.run(f"say [Discord] {ctx.message.author.display_name} : {message}")
+            with RconClient(settings.SERVER_HOST, int(settings.RCON_PORT), passwd=settings.RCON_PASSWORD) as DiscordClient:
+                DiscordClient.run(f"say [Discord] {ctx.message.author.display_name} : {message}")
             
             await ctx.send("Message sent", ephemeral=True)
         except Exception as e:
