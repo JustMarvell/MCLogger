@@ -1,6 +1,7 @@
 from mcstatus import JavaServer
+import settings
 
-server = JavaServer.lookup("whenyahs2.mcsh.io:25565")
+server = JavaServer.lookup(settings.SERVER_IP)
 
 async def get_server_status():
     status = server.status()
@@ -10,4 +11,4 @@ async def get_server_status():
 async def get_online_players():
     query = server.query()
     
-    return f"The server has the following player(s) online: {', '.join(query.players.list)}"
+    return f"The server has the following player(s) online: {query.players.list}"

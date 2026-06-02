@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 DISCORD_API_SECRET = os.getenv("DISCORD_API_TOKEN")
-DISCORD_WEBHOOK_URL_SECRET = os.getenv("WEBHOOK_URL")
+SERVER_IP = os.getenv("SERVER_IP")
 HEADERS = {"Content-Type" : "application/json"}
 BASE_DIR = pathlib.Path(__file__).parent
 COGS_DIR = BASE_DIR / "cogs"
