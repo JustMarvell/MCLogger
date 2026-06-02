@@ -35,6 +35,7 @@ class Client(commands.Bot):
         
         try:
             await self.load_cogs()
+            await self.sync_commands()
             
             tree_logger.info("I'm Ready!")
         except Exception as exception:
@@ -90,6 +91,17 @@ class Client(commands.Bot):
         except Exception as exception:
             error_msg = f"Failed to reload {extension_name} : {str(exception)}"
             cogs_logger.error(error_msg)
+            
+    async def sync_commands(self):
+        try:
+            tree_logger.info("Syncing all commands...")
+            synced = await client.tree.sync()
+            tree_logger.info(f"Synced {len(synced)} commands to global")
+
+            await asyncio.sleep(5)
+        except Exception as exception:
+            error_msg = f"Error syncing commands : {str(exception)}"
+            tree_logger.error(error_msg)
     
     async def on_command_error(self, ctx: commands.Context, error):
         command_name = str(ctx.command) if ctx.command else "unknown"
