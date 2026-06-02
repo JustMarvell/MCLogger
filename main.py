@@ -35,7 +35,6 @@ class Client(commands.Bot):
         
         try:
             await self.load_cogs()
-            await self.sync_commands()
             
             tree_logger.info("I'm Ready!")
         except Exception as exception:
