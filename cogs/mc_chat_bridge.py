@@ -16,20 +16,28 @@ class MCChatBridge(commands.Cog):
         self.bot = bot
         self.channel = None
         self.watch_task = None
+        if self.bot.is_ready():
+            asyncio.ensure_future(self._init_watcher())
 
     def cog_unload(self):
         if self.watch_task:
             self.watch_task.cancel()
+            self.watch_task = None
 
     @commands.Cog.listener()
     async def on_ready(self):
+        await self._init_watcher()
+
+    async def _init_watcher(self):
+        if self.watch_task and not self.watch_task.done():
+            return
         self.channel = self.bot.get_channel(int(settings.DISCORD_CHANNEL_ID))
         if self.channel:
             self.watch_task = self.bot.loop.create_task(self._start_watcher())
             cogs_logger.info("MC log watcher started")
         else:
             cogs_logger.error("MC bridge channel not found")
-
+            
     async def _start_watcher(self):
         while True:
             try:
