@@ -108,7 +108,7 @@ class Client(commands.Bot):
         logger.error(f"Command error in {command_name} : {error}")
 
         try:
-            ctx.send(f"An error occurred while executing the command. Please try again later...", ephemeral=True)
+            await ctx.send(f"An error occurred while executing the command. Please try again later...", ephemeral=True)
         except:
             pass
     
