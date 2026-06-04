@@ -1,6 +1,7 @@
 from discord.ext import commands
 from rcon.source import Client as RconClient
 import settings
+import discord
 
 cogs_logger = settings.logging.getLogger("cogs")
 
@@ -18,8 +19,15 @@ class SendToMC(commands.Cog):
         try:
             with RconClient(settings.SERVER_HOST, int(settings.RCON_PORT), passwd=settings.RCON_PASSWORD) as rcon:
                 rcon.run(f"say [Discord] {ctx.message.author.display_name} : {message}")
+                
+            embed = discord.Embed(color=2533376, title="`` Minecraft Chat ``:speech_balloon: ",)
+            embed.add_field(
+                name=f"``<{ctx.author.display_name}> :  {message}``",
+                value=" ",
+                inline=False,
+            )
             
-            await ctx.send("Message sent", ephemeral=True)
+            await ctx.send(embed=embed)
         except Exception as e:
             cogs_logger.error(f"RCON ERROR: {e}")
             await ctx.send("Message Failed to send", ephemeral=True)
