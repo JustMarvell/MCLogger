@@ -15,7 +15,7 @@ class Stats(commands.Cog):
         await ctx.defer()
         try:
             d = await get_stats()
-            e = discord.Embed(title="⚡ Server Stats", color=0x2ecc71)
+            e = discord.Embed(title="Server Stats", color=0x2ecc71)
             e.add_field(name="TPS", value=f"**{d['tps']}** / 20.0", inline=False)
             e.add_field(name="CPU", value=f"System: **{d['cpu_sys']}%** | Process: **{d['cpu_proc']}%**", inline=False)
             e.add_field(name="Memory", value=f"**{d['mem_used']} / {d['mem_total']}** ({d['mem_pct']}%)", inline=True)
