@@ -1,6 +1,7 @@
 import asyncio
 import time
 import settings
+from rcon.source import Client as RconClient
 
 async def _tcp_ping(host: str, port: int) -> dict:
     try:
@@ -17,4 +18,13 @@ async def ping_vps() -> dict:
     return await _tcp_ping(settings.SERVER_HOST, 22)
 
 async def ping_mc() -> dict:
-    return await _tcp_ping(settings.SERVER_HOST, int(settings.RCON_PORT))
+    try:
+        def _run():
+            with RconClient(settings.SERVER_HOST, int(settings.RCON_PORT), passwd=settings.RCON_PASSWORD) as rcon:
+                t = time.perf_counter()
+                rcon.run("list")
+                return round((time.perf_counter() - t) * 1000, 2)
+        latency = await asyncio.wait_for(asyncio.to_thread(_run), timeout=10)
+        return {"online": True, "latency": latency}
+    except Exception:
+        return {"online": False, "latency": None}
